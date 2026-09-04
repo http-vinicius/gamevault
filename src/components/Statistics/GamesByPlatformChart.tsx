@@ -1,0 +1,49 @@
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts'
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/card'
+
+interface GamesByPlatformChartProps {
+  data: { platform: string; count: number }[]
+}
+
+export function GamesByPlatformChart({ data }: GamesByPlatformChartProps) {
+  return (
+    <Card className="border-zinc-800/80 bg-zinc-900/60 flex flex-col">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base font-bold text-zinc-100">Jogos por Plataforma</CardTitle>
+        <p className="text-xs text-zinc-400">Onde você mais joga ou acumula títulos</p>
+      </CardHeader>
+      <CardContent className="flex-1 min-h-[280px]">
+        <div className="w-full h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+              <XAxis
+                dataKey="platform"
+                tick={{ fill: '#a1a1aa', fontSize: 11 }}
+                axisLine={{ stroke: '#27272a' }}
+                tickLine={false}
+              />
+              <YAxis
+                tick={{ fill: '#a1a1aa', fontSize: 11 }}
+                axisLine={{ stroke: '#27272a' }}
+                tickLine={false}
+                allowDecimals={false}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#18181b',
+                  borderColor: '#27272a',
+                  borderRadius: '0.5rem',
+                  fontSize: '12px',
+                  color: '#f4f4f5',
+                }}
+                formatter={(val: number) => [`${val} jogos`, 'Quantidade']}
+              />
+              <Bar dataKey="count" fill="#8b5cf6" radius={[6, 6, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}

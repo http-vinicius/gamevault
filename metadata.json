@@ -1,0 +1,6 @@
+{
+  "name": "GameVault",
+  "description": "App pessoal para organizar a vida gamer: biblioteca, wishlist, lançamentos, cofre gamer e gamificação com XP e conquistas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
