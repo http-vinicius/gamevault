@@ -27,10 +27,9 @@ export function AchievementsList({ achievements }: AchievementsListProps) {
 
   const categories = [
     { key: 'all', label: 'Todas as Categorias' },
-    { key: 'collection', label: 'Coleção' },
+    { key: 'games', label: 'Jogos' },
     { key: 'finance', label: 'Finanças' },
-    { key: 'dedication', label: 'Dedicação' },
-    { key: 'general', label: 'Geral' },
+    { key: 'mastery', label: 'Maestria' },
   ]
 
   const filtered = achievements.filter((ach) => {
