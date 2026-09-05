@@ -17,10 +17,10 @@ export function useAchievements() {
 
   const addXpMutation = useMutation({
     mutationFn: (amount: number) => addManualXp(amount),
-    onSuccess: (newProfile) => {
+    onSuccess: (newProfile, amount) => {
       queryClient.invalidateQueries({ queryKey: ['profile'] })
       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
-      toast.success(`+${newProfile.currentXp} XP concedido! Nível atual: ${newProfile.level}`)
+      toast.success(`+${amount} XP concedido! Nível atual: ${newProfile.level}`)
     },
   })
 

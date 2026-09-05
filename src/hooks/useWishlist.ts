@@ -51,7 +51,7 @@ export function useWishlist(initialFilters?: {
       queryClient.invalidateQueries({ queryKey: ['dashboard'] })
       queryClient.invalidateQueries({ queryKey: ['releases'] })
       queryClient.invalidateQueries({ queryKey: ['profile'] })
-      toast.success(`"${newItem.title}" adicionado à sua Wishlist! (+15 XP)`)
+      toast.success(`"${newItem.title}" adicionado à sua Wishlist!`)
     },
     onError: (err: any) => {
       toast.error(err.message || 'Erro ao adicionar à wishlist')

@@ -1,10 +1,25 @@
 import * as React from 'react'
-import { Outlet } from '@tanstack/react-router'
+import { Navigate, Outlet } from '@tanstack/react-router'
 import { Toaster } from 'sonner'
 import { Sidebar } from './Sidebar'
 import { MobileNav } from './MobileNav'
+import { useAuth } from '../../contexts/AuthContext'
 
 export function AppLayout() {
+  const { isLoading, isAuthenticated } = useAuth()
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#09090b] text-zinc-400">
+        Carregando GameVault...
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />
+  }
+
   return (
     <div className="min-h-screen bg-[#09090b] text-slate-200 flex flex-col lg:flex-row antialiased font-sans selection:bg-purple-500/30 selection:text-purple-200">
       {/* Desktop Sidebar */}

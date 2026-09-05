@@ -74,7 +74,7 @@ export function useLibrary(initialFilters?: {
       queryClient.invalidateQueries({ queryKey: ['statistics'] })
       queryClient.invalidateQueries({ queryKey: ['profile'] })
       queryClient.invalidateQueries({ queryKey: ['achievements'] })
-      toast.success(`"${newGame.title}" adicionado à biblioteca! (+10 XP)`)
+      toast.success(`"${newGame.title}" adicionado à biblioteca!`)
     },
     onError: (err: any) => {
       toast.error(err.message || 'Erro ao adicionar jogo')

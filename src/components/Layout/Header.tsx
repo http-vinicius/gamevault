@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Link } from '@tanstack/react-router'
-import { Coins, Trophy, Gamepad2, Shield } from 'lucide-react'
+import { Coins, Trophy, Gamepad2, Shield, LogOut } from 'lucide-react'
 import { useVault } from '../../hooks/useVault'
 import { useAchievements } from '../../hooks/useAchievements'
+import { useAuth } from '../../contexts/AuthContext'
 import { formatCurrency } from '../../lib/utils'
 
 interface HeaderProps {
@@ -14,6 +15,7 @@ interface HeaderProps {
 export function Header({ title, subtitle, action }: HeaderProps) {
   const { vaultData } = useVault()
   const { profile } = useAchievements()
+  const { logout } = useAuth()
 
   return (
     <header className="sticky top-0 z-30 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 bg-[#09090b]/80 px-6 md:px-8 py-5 backdrop-blur-md">
@@ -53,6 +55,15 @@ export function Header({ title, subtitle, action }: HeaderProps) {
           <span>Nv. {profile?.level ?? 18}</span>
           <span className="hidden sm:inline text-zinc-500">({profile?.currentXp ?? 780} XP)</span>
         </Link>
+
+        <button
+          onClick={() => logout()}
+          className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/80 px-3 py-1.5 text-xs font-semibold text-zinc-400 hover:text-rose-300 hover:border-rose-500/30 transition-colors cursor-pointer"
+          title="Sair"
+        >
+          <LogOut className="h-4 w-4" />
+          <span className="hidden sm:inline">Sair</span>
+        </button>
 
         {action && <div>{action}</div>}
       </div>
