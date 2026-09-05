@@ -1,10 +1,7 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getAchievements, getUserProfile, addManualXp } from '../services/http/achievements'
-import { toast } from 'sonner'
+import { useQuery } from '@tanstack/react-query'
+import { getAchievements, getUserProfile } from '../services/http/achievements'
 
 export function useAchievements() {
-  const queryClient = useQueryClient()
-
   const achievementsQuery = useQuery({
     queryKey: ['achievements'],
     queryFn: getAchievements,
@@ -13,15 +10,6 @@ export function useAchievements() {
   const profileQuery = useQuery({
     queryKey: ['profile'],
     queryFn: getUserProfile,
-  })
-
-  const addXpMutation = useMutation({
-    mutationFn: (amount: number) => addManualXp(amount),
-    onSuccess: (newProfile, amount) => {
-      queryClient.invalidateQueries({ queryKey: ['profile'] })
-      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
-      toast.success(`+${amount} XP concedido! Nível atual: ${newProfile.level}`)
-    },
   })
 
   const achievements = achievementsQuery.data ?? []
@@ -38,6 +26,5 @@ export function useAchievements() {
     latestAchievement,
     isLoading: achievementsQuery.isLoading || profileQuery.isLoading,
     isError: achievementsQuery.isError || profileQuery.isError,
-    addXp: addXpMutation.mutateAsync,
   }
 }

@@ -29,7 +29,7 @@ export function WishlistPage() {
   } = useWishlist()
 
   const { vaultData } = useVault()
-  const freeBalance = vaultData?.freeBalance ?? 335
+  const freeBalance = vaultData?.freeBalance ?? 0
 
   // Dialog states
   const [isAddEditDialogOpen, setIsAddEditDialogOpen] = React.useState(false)

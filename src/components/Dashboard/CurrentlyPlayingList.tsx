@@ -56,7 +56,7 @@ export function CurrentlyPlayingList({ games }: CurrentlyPlayingListProps) {
                   </Badge>
                 </div>
                 <p className="text-zinc-400 text-xs line-clamp-2">
-                  {featuredGame.notes || 'Campanha em andamento ativo. Foco total em completar os objetivos principais.'}
+                  {featuredGame.notes}
                 </p>
               </div>
             </div>

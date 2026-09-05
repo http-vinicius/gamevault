@@ -13,14 +13,14 @@ interface XpMissionCardProps {
 }
 
 export function XpMissionCard({ profile, monthlyGoal, latestAchievement }: XpMissionCardProps) {
-  const currentXp = profile?.currentXp ?? 780
-  const xpForNextLevel = profile?.xpForNextLevel ?? 1000
-  const level = profile?.level ?? 18
+  const currentXp = profile?.currentXp ?? 0
+  const xpForNextLevel = profile?.xpForNextLevel ?? 0
+  const level = profile?.level ?? 1
   const xpPercent = calculatePercentage(currentXp, xpForNextLevel)
 
-  const monthName = monthlyGoal ? MONTH_NAMES[monthlyGoal.month - 1] : 'Setembro'
-  const target = monthlyGoal?.targetAmount ?? 300
-  const current = monthlyGoal?.currentAmount ?? 185
+  const monthName = monthlyGoal ? MONTH_NAMES[monthlyGoal.month - 1] : ''
+  const target = monthlyGoal?.targetAmount ?? 0
+  const current = monthlyGoal?.currentAmount ?? 0
   const goalPercent = calculatePercentage(current, target)
   const remaining = Math.max(target - current, 0)
 
@@ -44,7 +44,7 @@ export function XpMissionCard({ profile, monthlyGoal, latestAchievement }: XpMis
             Nível {level}
           </h3>
           <span className="text-xs text-zinc-400 font-medium">
-            {profile?.title || 'Guardião do Backlog'}
+            {profile?.title ?? ''}
           </span>
         </div>
 
@@ -72,46 +72,54 @@ export function XpMissionCard({ profile, monthlyGoal, latestAchievement }: XpMis
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xs font-bold text-white uppercase tracking-widest flex items-center gap-2">
             <Target className="w-4 h-4 text-purple-400" />
-            Missão de {monthName}
+            {monthName ? `Missão de ${monthName}` : 'Missão do Mês'}
           </h3>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
             +1000 XP
           </span>
         </div>
 
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-14 h-14 rounded-full border-4 border-zinc-800 border-t-purple-500 flex items-center justify-center shrink-0">
-            <span className="text-xs font-bold text-white font-mono">{goalPercent}%</span>
-          </div>
-          <div className="min-w-0">
-            <p className="text-[11px] text-zinc-400">Objetivo: Economizar para</p>
-            <p className="text-base font-bold text-white leading-tight truncate">
-              Reserva de Jogos & Lançamentos
+        {monthlyGoal ? (
+          <>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-14 h-14 rounded-full border-4 border-zinc-800 border-t-purple-500 flex items-center justify-center shrink-0">
+                <span className="text-xs font-bold text-white font-mono">{goalPercent}%</span>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[11px] text-zinc-400">Objetivo: Economizar para</p>
+                <p className="text-base font-bold text-white leading-tight truncate">
+                  Reserva de Jogos & Lançamentos
+                </p>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-end mb-1.5">
+              <p className="text-lg font-black text-white font-mono">
+                {formatCurrency(current)}{' '}
+                <span className="text-zinc-500 font-normal text-xs">/ {formatCurrency(target)}</span>
+              </p>
+            </div>
+
+            <div className="w-full h-1.5 bg-zinc-800 rounded-full mb-3 overflow-hidden">
+              <div
+                className="h-full bg-purple-500 transition-all duration-500"
+                style={{ width: `${Math.min(Math.max(goalPercent, 0), 100)}%` }}
+              />
+            </div>
+
+            <p className="text-[11px] text-zinc-400">
+              {remaining > 0 ? (
+                <>Faltam <span className="text-purple-300 font-semibold">{formatCurrency(remaining)}</span> para a meta.</>
+              ) : (
+                <span className="text-green-400 font-semibold">Meta de economia batida! 🏆</span>
+              )}
             </p>
+          </>
+        ) : (
+          <div className="py-8 text-center text-zinc-500 text-sm">
+            Nenhuma meta mensal definida ainda.
           </div>
-        </div>
-
-        <div className="flex justify-between items-end mb-1.5">
-          <p className="text-lg font-black text-white font-mono">
-            {formatCurrency(current)}{' '}
-            <span className="text-zinc-500 font-normal text-xs">/ {formatCurrency(target)}</span>
-          </p>
-        </div>
-
-        <div className="w-full h-1.5 bg-zinc-800 rounded-full mb-3 overflow-hidden">
-          <div
-            className="h-full bg-purple-500 transition-all duration-500"
-            style={{ width: `${Math.min(Math.max(goalPercent, 0), 100)}%` }}
-          />
-        </div>
-
-        <p className="text-[11px] text-zinc-400">
-          {remaining > 0 ? (
-            <>Faltam <span className="text-purple-300 font-semibold">{formatCurrency(remaining)}</span> para a meta.</>
-          ) : (
-            <span className="text-green-400 font-semibold">Meta de economia batida! 🏆</span>
-          )}
-        </p>
+        )}
       </div>
 
       {/* Últimas Conquistas Card */}
@@ -121,27 +129,35 @@ export function XpMissionCard({ profile, monthlyGoal, latestAchievement }: XpMis
             <Award className="w-4 h-4 text-amber-400" />
             Últimas Conquistas
           </h3>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
-            Desbloqueada
-          </span>
+          {latestAchievement && (
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
+              Desbloqueada
+            </span>
+          )}
         </div>
 
-        <div className="flex gap-3.5 items-center mt-1">
-          <div className="w-12 h-12 rounded-xl bg-zinc-800/80 border border-zinc-700 flex items-center justify-center shrink-0 shadow-inner">
-            <Trophy className="w-6 h-6 text-amber-400" />
+        {latestAchievement ? (
+          <div className="flex gap-3.5 items-center mt-1">
+            <div className="w-12 h-12 rounded-xl bg-zinc-800/80 border border-zinc-700 flex items-center justify-center shrink-0 shadow-inner">
+              <Trophy className="w-6 h-6 text-amber-400" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-bold text-white truncate">
+                {latestAchievement.title}
+              </p>
+              <p className="text-[11px] text-zinc-400 line-clamp-1 mt-0.5">
+                {latestAchievement.description}
+              </p>
+              <span className="text-[10px] font-bold text-purple-400 font-mono inline-block mt-1">
+                +{latestAchievement.xpReward} XP Obtidos
+              </span>
+            </div>
           </div>
-          <div className="min-w-0 flex-1">
-            <p className="text-sm font-bold text-white truncate">
-              {latestAchievement?.title || 'Cofre Cheio'}
-            </p>
-            <p className="text-[11px] text-zinc-400 line-clamp-1 mt-0.5">
-              {latestAchievement?.description || 'Economizou R$ 1.000'}
-            </p>
-            <span className="text-[10px] font-bold text-purple-400 font-mono inline-block mt-1">
-              +{latestAchievement?.xpReward || 400} XP Obtidos
-            </span>
+        ) : (
+          <div className="py-8 text-center text-zinc-500 text-sm">
+            Nenhuma conquista desbloqueada ainda.
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

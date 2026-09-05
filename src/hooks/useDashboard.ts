@@ -19,7 +19,7 @@ export function useDashboard() {
 
   const wishlistCount = wishlist.length
 
-  const vaultBalance = vaultData?.totalVaultBalance ?? 1285
+  const vaultBalance = vaultData?.totalVaultBalance ?? 0
 
   const currentlyPlayingGames = games.filter((g) => g.status === 'playing')
 

@@ -16,9 +16,9 @@ export function GamificationProfileCard({
   unlockedCount,
   totalCount,
 }: GamificationProfileCardProps) {
-  const currentXp = profile?.currentXp ?? 780
-  const xpForNextLevel = profile?.xpForNextLevel ?? 1000
-  const level = profile?.level ?? 18
+  const currentXp = profile?.currentXp ?? 0
+  const xpForNextLevel = profile?.xpForNextLevel ?? 0
+  const level = profile?.level ?? 1
   const xpPercent = calculatePercentage(currentXp, xpForNextLevel)
   const achievementsPercent = calculatePercentage(unlockedCount, totalCount)
 
@@ -46,11 +46,11 @@ export function GamificationProfileCard({
               <div>
                 <div className="flex items-center gap-2">
                   <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                    {profile?.name || 'Alex Hunter'}
+                    {profile?.name ?? ''}
                   </h2>
                   <span className="text-xs px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold flex items-center gap-1">
                     <Shield className="w-3 h-3" />
-                    {profile?.title || 'Elite Player'}
+                    {profile?.title ?? ''}
                   </span>
                 </div>
                 <p className="text-xs text-zinc-400 mt-1">
@@ -71,7 +71,7 @@ export function GamificationProfileCard({
               <div className="text-center px-2">
                 <span className="text-[10px] text-zinc-500 uppercase tracking-wider block font-bold">Total XP</span>
                 <span className="text-xl font-black font-mono text-purple-400">
-                  {profile?.totalXp ?? 17780}
+                  {profile?.totalXp ?? 0}
                 </span>
               </div>
             </div>

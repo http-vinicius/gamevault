@@ -72,9 +72,9 @@ export function VaultPage() {
       <div className="p-4 md:p-6 lg:p-8 space-y-6 max-w-7xl w-full mx-auto">
         {/* Balances Banner */}
         <VaultBalancesHeader
-          totalVaultBalance={vaultData?.totalVaultBalance ?? 1285}
-          reservedForGames={vaultData?.reservedForGames ?? 950}
-          freeBalance={vaultData?.freeBalance ?? 335}
+          totalVaultBalance={vaultData?.totalVaultBalance ?? 0}
+          reservedForGames={vaultData?.reservedForGames ?? 0}
+          freeBalance={vaultData?.freeBalance ?? 0}
           onOpenDeposit={handleOpenFreeDeposit}
         />
 

@@ -20,7 +20,7 @@ export function DashboardStatsCards({
     {
       title: 'Zeradinhos',
       value: completedCount,
-      subtitle: '+3 este mês',
+      subtitle: 'Jogos concluídos',
       icon: Trophy,
       to: '/library',
       accentColor: 'text-green-400',

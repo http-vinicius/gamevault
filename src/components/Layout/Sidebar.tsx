@@ -29,9 +29,9 @@ export function Sidebar() {
   const currentPath = routerState.location.pathname
   const { profile } = useAchievements()
 
-  const level = profile?.level ?? 18
-  const currentXp = profile?.currentXp ?? 780
-  const xpForNextLevel = profile?.xpForNextLevel ?? 1000
+  const level = profile?.level ?? 1
+  const currentXp = profile?.currentXp ?? 0
+  const xpForNextLevel = profile?.xpForNextLevel ?? 0
   const xpPercentage = calculatePercentage(currentXp, xpForNextLevel)
 
   return (
@@ -104,21 +104,22 @@ export function Sidebar() {
 
           <div className="flex items-center gap-3 mt-4">
             <div className="w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center overflow-hidden shrink-0">
-              <img
-                src={
-                  profile?.avatarUrl ||
-                  'https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=160&q=80'
-                }
-                alt={profile?.name || 'Alex Gamer'}
-                className="w-full h-full object-cover"
-              />
+              {profile?.avatarUrl ? (
+                <img
+                  src={profile.avatarUrl}
+                  alt={profile?.name || ''}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Gamepad2 className="w-5 h-5 text-zinc-500" />
+              )}
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-bold text-white truncate">
-                {profile?.name || 'Alex Hunter'}
+                {profile?.name ?? ''}
               </p>
               <p className="text-[10px] text-zinc-500 uppercase tracking-widest truncate">
-                {profile?.title || 'Elite Player'}
+                {profile?.title ?? ''}
               </p>
             </div>
           </div>

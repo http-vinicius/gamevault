@@ -42,7 +42,7 @@ export function Header({ title, subtitle, action }: HeaderProps) {
           title="Saldo livre do Cofre Gamer"
         >
           <Coins className="h-4 w-4 text-emerald-400" />
-          <span>Livre: {formatCurrency(vaultData?.freeBalance ?? 335)}</span>
+          <span>Livre: {formatCurrency(vaultData?.freeBalance ?? 0)}</span>
         </Link>
 
         {/* Level / XP Quick Pill */}
@@ -52,8 +52,8 @@ export function Header({ title, subtitle, action }: HeaderProps) {
           title="Nível e Conquistas"
         >
           <Trophy className="h-4 w-4 text-purple-400" />
-          <span>Nv. {profile?.level ?? 18}</span>
-          <span className="hidden sm:inline text-zinc-500">({profile?.currentXp ?? 780} XP)</span>
+          <span>Nv. {profile?.level ?? 1}</span>
+          <span className="hidden sm:inline text-zinc-500">({profile?.currentXp ?? 0} XP)</span>
         </Link>
 
         <button

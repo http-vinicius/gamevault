@@ -10,8 +10,3 @@ export async function getUserProfile(): Promise<UserProfile> {
   const res = await httpClient.get('/profile')
   return res.data
 }
-
-export async function addManualXp(amount: number): Promise<UserProfile> {
-  const res = await httpClient.post('/profile/xp', { amount })
-  return res.data
-}
